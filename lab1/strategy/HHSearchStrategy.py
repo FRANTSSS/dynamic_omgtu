@@ -16,10 +16,11 @@ class HHSearchStrategy:
         # Logic with authorization and other settings
         #
         if client_id is None:
-            self.headers = {"user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
-                                          "(KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
-                            "content-type": "application/json; charset=utf-8"
-                            }
+            self.headers = {
+                "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+                              "(KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
+                "content-type": "application/json; charset=utf-8"
+            }
         self.base_url = base_url
         self.requests = HHRequests(base_url, self.headers)
 
