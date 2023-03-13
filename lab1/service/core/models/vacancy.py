@@ -8,9 +8,10 @@ __all__ = [
 
 class Vacancy(BaseModel):
     name: str
-    employer: str
-    area: str
+    employer_name: str
+    area_name: str
     salary_from: Optional[str] = None
     salary_to: Optional[str] = None
     currency: Optional[str] = None
     gross: Optional[str] = None
+

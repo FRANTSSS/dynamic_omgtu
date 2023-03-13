@@ -1,11 +1,12 @@
-from .helpers import (
-    HHRequests,
-    parse_vacancies_api
-)
-
-from ..core import HHService
+from typing import List
 
 from .exceptions import HHSearchStrategyError
+from .parser import parse_vacancies_api
+from .requests import HHRequests
+from ..core import (
+    HHService,
+    Vacancy
+)
 
 __all__ = [
     "HHServiceImpl"
@@ -25,7 +26,7 @@ class HHServiceImpl(HHService):
             }
         self.base_url = base_url
 
-    def search_by_searchform_with_city(self, search_line: str, area: str) -> list:
+    def search_by_searchform_with_city(self, search_line: str, area: str) -> List[Vacancy]:
         requests = HHRequests(self.base_url, self.headers)
         query = "/vacancies"
         params = {'text': search_line, 'area': area, 'per_page': '100', 'page': 0}
