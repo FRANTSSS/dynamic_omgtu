@@ -1,2 +1,2 @@
-from .HHService import HHService
+from .HHServiceImpl import HHServiceImpl
 from .exceptions import *

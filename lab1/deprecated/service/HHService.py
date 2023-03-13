@@ -12,7 +12,7 @@ __all__ = [
 class HHService:
     def __init__(self, base_url: str) -> None:
         #
-        # Logic with other strategy
+        # Logic with other service
         #
         self.search_strategy = HHSearchStrategy(base_url=base_url)
         self.base_url = base_url

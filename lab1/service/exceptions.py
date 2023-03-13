@@ -1,9 +1,8 @@
 
-
 __all__ = [
-    "HHServiceError"
+    "HHSearchStrategyError"
 ]
 
 
-class HHServiceError(Exception):
+class HHSearchStrategyError(Exception):
     pass
