@@ -1,0 +1,8 @@
+{
+  "memory": {
+    "type": "redis"
+  },
+  "bot": {
+    "token": ""
+  }
+}
