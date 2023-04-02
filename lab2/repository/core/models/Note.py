@@ -6,7 +6,6 @@ __all__ = [
 
 
 class Note(BaseModel):
-    uuid: str
     date: str
     time: str
     speciality: str

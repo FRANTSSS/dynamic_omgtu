@@ -1,8 +1,0 @@
-{
-  "memory": {
-    "type": "redis"
-  },
-  "bot": {
-    "token": "5671954339:AAEuAiv9mlb_uYp07YmVPp7G7H1KbdeqRgM"
-  }
-}

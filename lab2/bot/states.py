@@ -6,5 +6,6 @@ __all__ = [
 
 
 class UserStates(StatesGroup):
-    wait_create_note = State()
-    wait_delete_note = State()
+    wait_add_note = State()
+    wait_get_note = State()
+    wait_log = State()
