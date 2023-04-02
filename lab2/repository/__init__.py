@@ -1,3 +1,3 @@
 from .core import *
 from .impl import *
-from .exception import RedisRepositoryError
+from .exception import *

@@ -1,10 +1,13 @@
+import json
+from typing import List
+from uuid import uuid4
+
+from aioredis import Redis
+
 from ..core import (
     IRedisNotesRepository,
     Note
 )
-from typing import List
-from aioredis import Redis
-from uuid import uuid4
 from ..exception import (
     RedisRepositoryError,
     RedisNotesNotFoundError
@@ -15,13 +18,13 @@ __all__ = [
 ]
 
 
-def convert_to_note(note_dict: dict) -> Note:
+def convert_to_note(note_dict: bytes) -> Note:
+    note_dict = json.loads(note_dict.decode("utf-8"))
     return Note(
         date=note_dict.get("date"),
         time=note_dict.get("time"),
         speciality=note_dict.get("speciality"),
-        doctor=note_dict.get("doctor"),
-        patient=note_dict.get("patient")
+        doctor=note_dict.get("doctor")
     )
 
 
@@ -46,7 +49,7 @@ class RedisNotesRepository(IRedisNotesRepository):
         if len(result) == 0:
             raise RedisNotesNotFoundError
         for id_ in result:
-            note = await self.r.get(str(id_))
+            note = await self.r.get(id_.decode("utf-8"))
             if not note:
                 raise RedisNotesNotFoundError
             note = convert_to_note(note)
@@ -62,7 +65,7 @@ class RedisNotesRepository(IRedisNotesRepository):
         if len(result) == 0:
             raise RedisNotesNotFoundError
         for id_ in result:
-            note = await self.r.get(str(id_))
+            note = await self.r.get(id_.decode("utf-8"))
             if not note:
                 raise RedisNotesNotFoundError
             note = convert_to_note(note)
@@ -74,6 +77,8 @@ class RedisNotesRepository(IRedisNotesRepository):
         if not result:
             raise RedisNotesNotFoundError
         new_note_id = f"{user_id}-{note_id}"
-        r = await self.r.set(new_note_id, result)
+        result = convert_to_note(result)
+        result.uuid = new_note_id
+        r = await self.r.set(new_note_id, result.json())
         if not r:
             raise RedisNotesNotFoundError
