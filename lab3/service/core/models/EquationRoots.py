@@ -7,5 +7,5 @@ __all__ = [
 
 
 class EquationRoots(BaseModel):
-    name: str
+    name: str = None
     value: Union[int, float] = None

@@ -1,15 +1,12 @@
+from math import sqrt
+from typing import List
+
 from ..core import (
     IEquationSolver,
     Equation,
     EquationRoots,
 )
-from typing import (
-    Union,
-    List
-)
 from ..exceptions import *
-from math import sqrt
-
 
 __all__ = [
     "EquationSolver"
@@ -20,7 +17,7 @@ class EquationSolver(IEquationSolver):
     def __init__(self):
         pass
 
-    async def __get_discriminant(self, eq: Equation) -> Union[int, float]:
+    async def __get_discriminant(self, eq: Equation) -> float:
         d = (eq.b*eq.b) - (4*eq.a*eq.c)
         return d
 
