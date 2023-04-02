@@ -18,8 +18,10 @@ from .bot import (
 
 from .ioc_container import ioc
 
-import redis
+from .bot import TelegramBotFactory
+import json
 
+from model import EnvDTO
 
 __all__ = [
     "bootstrap"
@@ -29,7 +31,20 @@ __all__ = [
 def bootstrap(path_env: str = "."):
     load_dotenv(path_env)
     config_path = os.environ.get("CONFIG_PATH")
+    try:
+        with open(config_path, 'r') as file:
+            js = json.load(file)
+        env = EnvDTO(bot=js.get("bot"),
+                     memory=js.get("memory"))
+    except Exception as e:
+        raise EnvModuleError()
 
+    memory = MemoryStorage()
+
+    bot_factory = TelegramBotFactory(env.bot.get("token"))
+    bot = bot_factory.get_telegram_bot()
+
+    ioc.set_instance(Bot, bot)
 
     r = redis.Redis()
     ioc.set_instance(redis.Redis, r)
